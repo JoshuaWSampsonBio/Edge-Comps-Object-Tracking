@@ -152,8 +152,8 @@ for observations in detections:
                 iou_val = IOU.IOU(i.get_past(1), j)
                 dtheta_val = 0
                 if (len(i.get_past_list()) >= delta_t) & (len(i.get_past_list()) >= intention_distance):
-                    dtheta_val = DeltaTheta.DeltaTheta(i.get_past(1),i.get_past(delta_t), i.get_past(intention_distance),j) ###fix!!!
-                Cost = -1 * (iou_val + consistency_lambda * dtheta_val)
+                    dtheta_val = DeltaTheta.DeltaTheta(i.get_past(1),i.get_past(delta_t), i.get_past(intention_distance),j)
+                Cost = -1 * (iou_val - consistency_lambda * dtheta_val)
                 Cost_line.append(Cost)
             Cost_matrix.append(Cost_line)
 
