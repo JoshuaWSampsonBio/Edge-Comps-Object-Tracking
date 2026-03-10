@@ -1,13 +1,11 @@
 def DetectionReader(path):
     video_observations = [] #list of frame_observations
-    # This becomes the full video: list of frames, each frame is a list of detections.
+    # full video: list of frames, each frame is a list of detections.
 
     frame_observations = [] #list of detections in a single frame
-    # This is your running list for the current frame.
+    # running list for the current frame.
 
     counter = 1
-    # This tracks which frame we’re currently accumulating.
-    # Assumes the first frame in the file is frame 1.
 
     with open(path) as f:
         lines = f.readlines()
@@ -19,12 +17,8 @@ def DetectionReader(path):
 
     for detection in lines:
         m = detection.split(',')
-        # m[0] = frame
-        # m[1..5] = x1,y1,x2,y2,score
 
         if (int(m[0]) > counter):
-            # This means the file moved to a new frame.
-            # So we "close out" the previous frame’s detections.
 
             counter += 1
             video_observations.append(frame_observations)
@@ -34,8 +28,6 @@ def DetectionReader(path):
             # reset for next frame
 
             while (counter < int(m[0])):
-                # If frames are skipped (e.g., file jumps from frame 5 to frame 8),
-                # you insert empty lists for missing frames.
                 video_observations.append([])
                 counter += 1
 
